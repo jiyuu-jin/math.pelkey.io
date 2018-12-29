@@ -1,5 +1,14 @@
 import Input from '@material-ui/core/Input';
 import * as React from 'react';
+import {stringify} from "querystring";
+
+
+const gameObject = {
+    mode: "countdown",
+    timePerProb: 15
+};
+
+
 
 export default class GameView extends React.Component<any, any> {
     constructor(props: any){
@@ -17,6 +26,7 @@ export default class GameView extends React.Component<any, any> {
         this.deleteValue = this.deleteValue.bind(this);
         this.checkNumber = this.checkNumber.bind(this);
         this.startTimer = this.startTimer.bind(this);
+        this.tickTimer = this.tickTimer.bind(this);
     }
 
     public addValue(value: string){
@@ -44,21 +54,31 @@ export default class GameView extends React.Component<any, any> {
         }
     }
 
-    public startTimer(){
-        const time = this.state.time;
-        if(time < 11){
-            console.log("Timer started");
+    public tickTimer(){
+        this.setState({time: this.state.time + 1});
+        console.log("time", this.state.time)
+        this.startTimer(gameObject.timePerProb)
+    }
+
+    public startTimer(timePerProb: number){
+        const interval = (1000 / timePerProb);
+        if(this.state.time < 100){
+            window.setTimeout(this.tickTimer,interval);
+        }else{
+            this.setState({time: 0});
+            this.startTimer(timePerProb)
         }
     }
 
+
     public generateProblem(){
-        const num1 = Math.floor(Math.random() * 10);
-        const num2 = Math.floor(Math.random() * 10);
+        const num1 = Math.floor(Math.random() * 10 + 1);
+        const num2 = Math.floor(Math.random() * 10 + 1);
         const answer = num1 + num2;
         this.setState({num1, num2, answer});
 
         if(this.state.timer === true){
-            this.startTimer()
+            this.startTimer(gameObject.timePerProb)
         }
     }
 
@@ -69,15 +89,14 @@ export default class GameView extends React.Component<any, any> {
 
     public render(){
 
-
-       const { currentSize } = this.state.time;
+       console.log((stringify(gameObject)));
 
         return (
             <div className="game">
                 <h4 className="score">{this.state.score}</h4>
 
                 <div id="timer">
-                    <div style={{width: currentSize}} id="timerFill"/>
+                    <div style={{bottom: this.state.time}} id="timerFill"/>
                 </div>
 
                 <div className="problem">
