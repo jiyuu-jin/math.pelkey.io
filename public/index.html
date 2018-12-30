@@ -83,27 +83,20 @@
         margin: 0 auto;
       }
 
-      .MuiInput-input-73{
-        border: 2px solid #ffffff !important;
-        border-radius: 4px !important;
-        color: white !important;
-      }
-
       .problem{
         color: white;
         font-size: 45px;
         letter-spacing: 10px;
         font-weight: 600;
-        margin: 80px  auto 0 auto;
+        margin: 50px  auto 0 auto;
         text-align: center;
         display: flex;
         justify-content: center;
       }
 
       #timer{
-        padding-top: 20px;
         margin: 20px auto 0 auto;
-        width: 500px;
+        max-width: 500px;
       }
 
       #timerFill{
@@ -111,6 +104,24 @@
         width: 100%;
         position: absolute;
         top: 0;
+      }
+
+      #filled-name{
+        color: white;
+        text-align: center;
+        border-radius: 4px;
+        border: 2px solid #ffffff;
+        background-color: rgba(162, 162, 162, 0.38);
+        margin-bottom: 20px;
+      }
+
+      #filled-name::before{
+        border-bottom: none;
+      }
+
+      #optionBar{
+        display: flex;
+        justify-content: center;
       }
 
       .score{
@@ -131,8 +142,9 @@
       }
 
       #status{
+        max-width: 300px;
         position: fixed;
-        top: 10px;
+        top: 0;
         left: 0;
         right: 0;
         margin: 0 auto;
@@ -148,7 +160,7 @@
         }
 
         .problem{
-          margin: 60px  auto 0 auto;
+          margin: 40px  auto 0 auto;
         }
 
       }

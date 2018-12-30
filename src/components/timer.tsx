@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 
 const styles = {
     root: {
@@ -50,15 +50,15 @@ export class Timer extends React.Component<any, any> {
                 <LinearProgress variant="determinate" value={this.state.completed} />
                 <br />
                 <LinearProgress color="secondary" variant="determinate" value={this.state.completed} />
-                <CircularProgress
-                    className={classes.progress}
-                    variant="determinate"
-                    value={this.state.completed}
-                />
             </div>
         );
     }
 }
 
+/*<CircularProgress
+       className={classes.progress}
+       variant="determinate"
+       value={this.state.completed}
+   /> */
 
 export default withStyles(styles)(Timer);

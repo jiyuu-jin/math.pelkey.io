@@ -1,9 +1,11 @@
-import Input from '@material-ui/core/Input';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import {gameConfig} from '../gameConfig'
 import queryString from 'querystring';
 import Timer from '../components/timer';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 
 export default class GameView extends React.Component<any, any> {
 
@@ -150,11 +152,11 @@ export default class GameView extends React.Component<any, any> {
             <div className="game">
                 {gameOver}
 
+                <h4 className="score">{this.state.score}</h4>
+
                 <div id="status">
                     <Timer/>
                 </div>
-
-                <h4 className="score">{this.state.score}</h4>
 
                 <div className="problem">
                     <div id="num1">{this.state.num1}</div>
@@ -164,12 +166,16 @@ export default class GameView extends React.Component<any, any> {
                     <div id="num2">{this.state.num2}</div>
                 </div>
                 <div className="inputField">
-                    <Input
+                    <TextField
+                        id="filled-name"
                         value={this.state.value}
-                        inputProps={{
-                            'aria-label': 'Description',
-                        }}
+                        margin="normal"
                     />
+                </div>
+                <div id="optionBar">
+                        <Button variant="contained" size="medium" color="primary">
+                            Pause
+                        </Button>
                 </div>
                 <div className="keyboard">
                     <div className="grid-container grid-container--fill">
