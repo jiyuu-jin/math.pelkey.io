@@ -1,9 +1,9 @@
 import Input from '@material-ui/core/Input';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import gameConfig from '../gameConfig.js'
+import {gameConfig} from '../gameConfig'
 import queryString from 'querystring';
-
+import Timer from '../components/timer';
 
 export default class GameView extends React.Component<any, any> {
 
@@ -30,14 +30,14 @@ export default class GameView extends React.Component<any, any> {
             timeLimit: game.timeLimit,
             score: 0,
             time: 0,
-            success: null
+            success: null,
+            gameOver: false
         };
 
         this.deleteValue = this.deleteValue.bind(this);
         this.checkNumber = this.checkNumber.bind(this);
         this.startGame =  this.startGame.bind(this);
-        this.startTimer = this.startTimer.bind(this);
-        this.tickTimer = this.tickTimer.bind(this);
+        // this.startTimer = this.startTimer.bind(this);
         this.endGame = this.endGame.bind(this);
         this.getOperator = this.getOperator.bind(this)
     }
@@ -74,25 +74,24 @@ export default class GameView extends React.Component<any, any> {
         }
     }
 
-    public tickTimer(){
+   /* public startTimer(timePerProb: number, gameOver: boolean){
         this.setState({time: this.state.time + 1});
-        console.log("time", this.state.time);
-        this.startTimer(15)
-    }
 
-    public startTimer(timePerProb: number){
-        const interval = (1000 / timePerProb);
-        if(this.state.time < 100){
-            window.setTimeout(this.tickTimer,interval);
-        }else{
-            this.setState({time: 0});
-            this.startTimer(timePerProb)
+        if(!gameOver){
+            const interval = (1000 / timePerProb);
+
+            if(this.state.time < 100){
+                window.setTimeout(this.startTimer(timePerProb, this.state.gameOver),interval);
+            }else{
+                this.setState({time: 0});
+                this.startTimer(timePerProb, this.state.gameOver)
+            }
         }
-    }
+    }*/
 
     public endGame(){
         if(this.state.mode === "countdown"){
-            if(this.state.pointGoal < this.state.score){
+            if(this.state.pointGoal <= this.state.score){
                 this.setState({success: true});
             }else{
                 this.setState({success: false});
@@ -101,12 +100,7 @@ export default class GameView extends React.Component<any, any> {
     }
 
     public startGame(){
-        if(this.state.timer === true){
-            this.startTimer(15)
-        }
-
         setTimeout(this.endGame, this.state.timeLimit)
-
     }
 
     public generateProblem(){
@@ -118,7 +112,11 @@ export default class GameView extends React.Component<any, any> {
 
     public componentDidMount(){
         this.generateProblem();
-        this.startGame();
+        this.startGame()
+    }
+
+    public componentWillUnmount() {
+        this.setState({gameOver: true})
     }
 
     public render(){
@@ -151,11 +149,12 @@ export default class GameView extends React.Component<any, any> {
         return (
             <div className="game">
                 {gameOver}
-                <h4 className="score">{this.state.score}</h4>
 
-                <div id="timer">
-                    <div style={{bottom: this.state.time}} id="timerFill"/>
+                <div id="status">
+                    <Timer/>
                 </div>
+
+                <h4 className="score">{this.state.score}</h4>
 
                 <div className="problem">
                     <div id="num1">{this.state.num1}</div>

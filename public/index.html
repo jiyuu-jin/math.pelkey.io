@@ -94,20 +94,16 @@
         font-size: 45px;
         letter-spacing: 10px;
         font-weight: 600;
-        margin: 60px  auto 0 auto;
+        margin: 80px  auto 0 auto;
         text-align: center;
         display: flex;
         justify-content: center;
       }
 
       #timer{
-        background-color: white;
-        height: 70px;
-        width: 70px;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        border: 1px solid white;
+        padding-top: 20px;
+        margin: 20px auto 0 auto;
+        width: 500px;
       }
 
       #timerFill{
@@ -134,10 +130,27 @@
         height: 100vh;
       }
 
-      @media only screen and (max-width: 600px) {
+      #status{
+        position: fixed;
+        top: 10px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+      }
+
+      @media only screen and (max-width: 900px) {
         #gameOver {
           padding-top: 30%;
         }
+
+        #timer{
+          width: 70%;
+        }
+
+        .problem{
+          margin: 60px  auto 0 auto;
+        }
+
       }
 
 
